@@ -1,9 +1,11 @@
+import { tryStatement } from '@babel/types';
 import { 
     ADD_ONE,
     APPLY_NUMBER,
     CHANGE_OPERATION,
     CLEAR_DISPLAY,
-    MEMORY_ADD } from './../actions';
+    MEMORY_ADD,
+    MEMORY_APPLY} from './../actions';
 
 export const initialState = {
     total: 0,
@@ -54,6 +56,11 @@ const reducer = (state, action) => {
                 memory: state.total
             });
 
+        case(MEMORY_APPLY):
+            return({
+                ...state,
+                total: calculateResult(state.total, state.memory, state.operation)
+            })
         default:
             return state;
     }
